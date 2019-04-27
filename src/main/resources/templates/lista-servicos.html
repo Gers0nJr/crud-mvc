@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width" />
+<title>CRUD - MVC</title>
+
+<link rel="stylesheet" type="text/css" th:href="@{/dist/bootstrap-4.3.1/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/dist/css/style.css}" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+
+<link rel="shortcut icon" th:href="@{/dist/img/logo.png}"/>
+</head>
+
+<body>
+
+	<nav class="navbar navbar-color navbar-expand-lg">
+		
+		
+		<a href="#"> <img th:src="@{/dist/img/logo.png}"
+			alt="Smiley face" width="30px">
+			<strong style="color: black">Lista de serviços</strong>
+		</a>
+		
+		<div class="btn-group menu-right dropleft">
+			<div class="dropdown">
+			  <a class="fas fa-bars navbar-fontcolor" style="text-decoration:none" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
+			  </a>
+			
+			  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+			    <a class="dropdown-item" th:href="@{/clientes}">Clientes</a>
+			    <div class="dropdown-divider"></div>
+			    <a class="dropdown-item" th:href="@{/logout}">Sair</a>
+			  </div>
+			</div>
+		</div>
+
+	</nav>
+
+	<section>
+		<div class="container navbar-margin">
+
+			<div class="alert  alert-success  alert-dismissible" role="alert"
+				th:if="${not #strings.isEmpty(mensagem)}">
+				<button type="button" class="close" data-dismiss="alert">
+					<span aria-hidden="true">&times;</span>
+				</button>
+
+				<span th:text="${mensagem}"></span>
+			</div>
+
+			<div class="jumbotron bg-light">
+
+
+				<form method="GET" th:action="@{/servicos/consulta}">
+					<div class="form-row">
+						<div class="form-group col-md-6">
+							<div class="input-group mb-3">
+								<input type="text" class="form-control"
+									placeholder="Digite o nome que você quer localizar."
+									aria-label="Digite o nome que você quer localizar."
+									aria-describedby="button-addon2" name="nome">
+								<div class="input-group-append">
+									<button class="btn btn-outline-primary" type="submit"
+										id="button-addon2">buscar</button>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</form>
+
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						<div class="input-group mb-3">
+							<a th:href="@{/servicos/novo}" class="btn btn-outline-primary">Novo
+								Serviço</a>
+						</div>
+					</div>
+				</div>
+				
+				<div class="table-responsive">
+					<table class="table table-bordered">
+	
+						<thead>
+							<tr>
+								<th>Id</th>
+								<th>Nome</th>
+								<th>Descrição</th>
+								<th class="text-center">#</th>
+							</tr>
+						</thead>
+	
+						<tbody>
+							<tr th:each="servico : ${serv}">
+								<td th:text="*{servico.id}">Id</td>
+								<td th:text="*{servico.nome}">Nome</td>
+								<td th:text="*{servico.descricao}">Descrição</td>
+								<td ><a class="btn btn-link btn-xs"
+									th:href="@{/servicos/{id}(id=${servico.id})}"> <span
+										class="fas fa-pen-alt" title="Editar"></span>
+								</a> <a href="#" class="btn btn-link btn-xs"
+									data-toggle="modal" data-target="#confirmacaoExclusaoModalServico"
+									th:attr="data-id=${servico.id}, data-nome=${servico.nome}"> <span
+										class="fas fa-trash-alt" title="Excluir"></span>
+								</a></td>
+							</tr>
+							
+							<tr>
+	   							<td colspan="12" th:if="${#lists.isEmpty(serv)}">Nenhum serviço encontrado.</td>
+	   						</tr>
+						</tbody>
+	
+					</table>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	<!-- Modal  -->
+	
+	<div class="modal fade" id="confirmacaoExclusaoModalServico" tabindex="-1" data-keyboard="false" data-backdrop="static">
+		<div class="modal-dialog">
+			<form th:attr="data-url-base='/servicos'" method="POST">
+				<input type="hidden" name="_method" value="DELETE"/>
+				
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">Você tem certeza?</h4>
+					</div>
+					
+					<div class="modal-body">
+						<span>Tem certeza que deseja apagar o servico?</span>
+					</div>
+					
+					<div class="modal-footer">
+						<button type="button" class="btn btn-link" data-dismiss="modal">Cancelar</button>
+						<button type="submit" class="btn btn-outline-danger">Excluir</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	
+	<!--  -->
+
+	<footer class="footer">
+		<div class="container">
+			<span class="text-muted">© 2019 <a target="_blank">Gerson Alves Batista Junior</a>. Projeto em MVC para estudo.
+			</span>
+		</div>
+	</footer>
+
+	<script th:src="@{/dist/js/jquery/jquery-3.4.0.min.js}"></script>
+	<script th:src="@{/dist/bootstrap-4.3.1/js/bootstrap.min.js}"></script>
+	<script th:src="@{/dist/js/crud.js}"></script>
+</body>
+
+</html>

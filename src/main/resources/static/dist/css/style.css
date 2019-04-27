@@ -1,0 +1,60 @@
+.navbar-color {
+	
+	background-color: #6495ED;
+	
+}
+
+.navbar-fontcolor {
+	
+	color: #FFFFFF;
+	
+}
+
+.navbar-margin{
+
+	margin-top: 45px;
+	
+}
+
+.menu-right{
+  position: absolute;
+  right: 2%;
+}
+
+.posicao{
+	
+	margin-top: 60px;
+	margin-left: 500px;
+	
+}
+
+.modal-dialog {
+    min-height: calc(70vh - 60px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: auto;
+}
+@media(max-width: 768px) {
+  .modal-dialog {
+    min-height: calc(100vh - 20px);
+  }
+}
+
+.divCenter { 
+	padding-top: 15px;
+	padding-bottom: 35px;
+   	background-color: #f7f4f4;
+    width: 350px; 
+    height: 250px; 
+	left: 50%; 
+    margin: -200px 0 0 -175px; 
+    position: absolute; 
+    top: 50%; 
+}
+
+.entre-botoes{
+	
+	margin-top: 10px;
+	
+}

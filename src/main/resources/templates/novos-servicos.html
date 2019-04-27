@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width" />
+<title>JBQ - Entrevista</title>
+
+<link rel="stylesheet" type="text/css" th:href="@{/dist/bootstrap-4.3.1/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/dist/css/style.css}" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+
+<link rel="shortcut icon" th:href="@{/dist/img/logo.png}"/>
+</head>
+
+<body>
+
+	<nav class="navbar navbar-color navbar-expand-lg">
+		<a href="#"> <img th:src="@{/dist/img/logo.png}"
+			alt="Smiley face" width="30px">
+			<strong style="color: black">Cadastro de serviços</strong>
+		</a>
+		
+		<div class="btn-group menu-right dropleft">
+			<div class="dropdown">
+			  <a class="fas fa-bars navbar-fontcolor" style="text-decoration:none" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
+			  </a>
+			
+			  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+			    <a class="dropdown-item" th:href="@{/clientes}">Clientes</a>
+			    <div class="dropdown-divider"></div>
+			    <a class="dropdown-item" th:href="@{/logout}">Sair</a>
+			  </div>
+			</div>
+		</div>
+	</nav>
+
+	<section>
+		<div class="container navbar-margin">
+
+			<form method="POST" th:object="${servicos}" th:action="@{/servicos/add}">
+
+				<div class="alert  alert-danger  alert-dismissible" role="alert"
+					th:if="${#fields.hasAnyErrors()}">
+					<button type="button" class="close" data-dismiss="alert">
+						<span aria-hidden="true">&times;</span>
+					</button>
+
+					<th:block th:each="detailedError : ${#fields.detailedErrors()}">
+						<div>
+							<i class="fa  fa-exclamation-circle"></i>
+							[[${detailedError.message}]].
+						</div>
+					</th:block>
+				</div>
+
+				<div class="jumbotron bg-light">
+
+					<div class="form-row">
+						<div class="form-group col-md-6">
+							<div class="input-group mb-3">
+								<a th:href="@{/servicos}" class="btn btn-outline-primary">Lista
+									de serviços</a>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-row">
+						<div class="form-group col-md-2">
+							<!-- <label for="input-nome">Id</label> -->
+							<input type="hidden" class="form-control" id="input-nome"
+								name="id" th:value="${servicos.id}">
+						</div>
+					</div>
+
+					<div class="form-row">
+						<div class="form-group col-md-12">
+							<label for="input-nome">Nome</label> <input type="text"
+								class="form-control" id="input-nome"
+								placeholder="Dígite seu nome" name="nome" th:field="*{nome}">
+						</div>
+					</div>
+
+					<div class="form-row">
+						<div class="form-group col-md-12">
+							<label for="descricao">Descrição</label> <input type="text"
+								class="form-control" id="descricao"
+								placeholder="Dígite uma descrição" name="descricao"
+								th:field="*{descricao}">
+						</div>
+					</div>
+
+					<div class="form-row">
+						<div class="col-sm-offset-6 col-sm-6">
+							<button type="submit" class="btn btn-outline-primary">Salvar</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</section>
+
+	<footer class="footer">
+		<div class="container">
+			<span class="text-muted">© 2019 <a target="_blank">Gerson Alves Batista Junior</a>. Projeto em MVC para estudo.
+			</span>
+		</div>
+	</footer>
+
+	<script th:src="@{/dist/js/jquery/jquery-3.4.0.min.js}"></script>
+	<script th:src="@{/dist/bootstrap-4.3.1/js/bootstrap.min.js}"></script>
+</body>
+
+</html>

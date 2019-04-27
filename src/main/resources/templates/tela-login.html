@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width" />
+<title>CRUD - MVC</title>
+
+<link rel="stylesheet" type="text/css" th:href="@{/dist/css/style.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/dist/bootstrap-4.3.1/css/bootstrap.min.css}" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+
+<link rel="shortcut icon" th:href="@{/dist/img/logo.png}"/>
+</head>
+
+<body>
+
+	<section>
+		<div class="divCenter">
+			<div class="container-fluid">
+			
+				<img th:src="@{/dist/img/logo.png}" height="40" width="40">
+				
+				<form class="form-horizontal" action="/login" method="POST">
+				
+					<div th:if="${#bools.isTrue(param.error)}">
+						<div class="messagem" style="text-align: center">
+							<strong style="color: red">Login ou senha não conferem.</strong>
+						</div>
+					</div>	
+					
+					<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+				
+					<input type="text" class="form-control entre-botoes" name="username" placeholder="Login" autofocus="autofocus"/>
+					<input type="password" class="form-control entre-botoes" name="password" placeholder="Senha"/>
+						
+					<button type="submit" class="btn btn-primary btn-sm btn-block entre-botoes">Logar</button>
+					
+				</form>
+				
+				<div style="text-align: center; margin-top: 10px">
+					<i class="far fa-question-circle"><strong> Login: admin & Senha: 123</strong></i>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<script th:src="@{/dist/js/jquery/jquery-3.4.0.min.js}"></script>
+	<script th:src="@{/dist/bootstrap-4.3.1/js/bootstrap.min.js}"></script>
+</body>
+
+</html>
